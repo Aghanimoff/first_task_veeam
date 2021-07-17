@@ -1,5 +1,6 @@
-import sqlite3
 import hashlib
+import sqlite3
+__import__
 
 debug = 0
 
@@ -92,3 +93,6 @@ if __name__ == "__main__":
     print(check_file('test_file.txt', '1_task.py'))
     print(check_file('test_file.txt', 'file_02.txt'))  # файла нет в директории
     print(check_file('test_file.txt', 'file_03.txt'))  # файла нет в хэш-файле
+
+    help(create_hash)
+    print(create_hash)
