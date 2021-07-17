@@ -84,7 +84,7 @@ if __name__ == "__main__":
 
     print()
 
-    create_txt_file_with_hash_func()
+    # create_txt_file_with_hash_func()
 
     print(check_file('test_file.txt', 'file_01.txt'))
     print(check_file('test_file.txt', 'example.xml'))
