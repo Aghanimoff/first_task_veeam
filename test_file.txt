@@ -1,0 +1,7 @@
+file_01.txt md5 0232f46b4e23d96044bb0916832515d9 
+2_task_folder/file_02.txt md5 0b40d0fc6ee0e071593d144288084b5a 
+example.xml sha1 48e790d6f560b5d97bde242d47e190f6f01127a0 
+second_task.py sha224 b85b4fb9302b5ad875dca7853402a708efa8ac57a2d1dfeb03b07f57 
+first_task.py sha256 35540a8d6c9b388aa98e81c395177542fd7651b8abc25b8ef10543718697ba03 
+file_02.txt sha24 None 
+file_04.txt sha224 None 
