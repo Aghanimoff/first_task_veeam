@@ -1,11 +1,10 @@
 import hashlib
 import sqlite3
-__import__
 
 debug = 0
 
 
-def create_hash(file_name, hash_type):
+def create_hash(file_name: str, hash_type):
     """
     Func. returns xml file in project directory
     This is not a universal function, it is designed for a specific task
@@ -16,7 +15,7 @@ def create_hash(file_name, hash_type):
         open_file = open(file_name, 'r')
     except FileNotFoundError:
         if debug == 1:
-            print(f'[ERROR] Файл {file_name} не был найден')
+            print(f'[ERROR] File {file_name} not found')
         return
 
     if hash_type == 'md5':
@@ -29,11 +28,11 @@ def create_hash(file_name, hash_type):
         file_hash = hashlib.sha256(open_file.read().encode())
     else:
         if debug == 1:
-            print(f'[ERROR] Указан неподдерживаемый вид хэширования для файла {file_name}: ({hash_type}). ')
+            print(f'[ERROR] incorrect hash-type for file {file_name}: ({hash_type}). ')
         return
 
     open_file.close()
-#    print(f'[INFO] Хэш сумма для файла "{file_name}": {file_hash.hexdigest()}')
+    #    print(f'[INFO] hash sum for file "{file_name}": {file_hash.hexdigest()}')
 
     return file_hash.hexdigest()
 
@@ -44,11 +43,10 @@ def add_hash_info_to_test_file(file_name, hash_type, test_file):
 
 
 def check_file(hash_file_path, file_path):
-
     hash_file = open(hash_file_path, 'r')
     try:
         open(file_path, 'r')
-    except:
+    except FileNotFoundError:
         return f'[ERROR] {file_path} NOT FOUND'
 
     for line in hash_file:
@@ -70,29 +68,23 @@ def check_file(hash_file_path, file_path):
 
 
 def create_txt_file_with_hash_func():
-
     with open('test_file.txt', 'w+') as test_file:
-
         add_hash_info_to_test_file('file_01.txt', 'md5', test_file)
         add_hash_info_to_test_file('example.xml', 'sha1', test_file)
-        add_hash_info_to_test_file('2_task.py', 'sha224', test_file)
-        add_hash_info_to_test_file('1_task.py', 'sha256', test_file)
-        add_hash_info_to_test_file('file_02.txt', 'sha24', test_file)  # неверный тип хэш-функции
-        add_hash_info_to_test_file('file_04.txt', 'sha224', test_file)  # файла не существует
+        add_hash_info_to_test_file('second_task.py', 'sha224', test_file)
+        add_hash_info_to_test_file('first_task.py', 'sha256', test_file)
+        add_hash_info_to_test_file('file_02.txt', 'sha24', test_file)  # invalid hash type
+        add_hash_info_to_test_file('file_04.txt', 'sha224', test_file)  # file does not exist
 
 
 if __name__ == "__main__":
-
     print()
 
     # create_txt_file_with_hash_func()
 
     print(check_file('test_file.txt', 'file_01.txt'))
     print(check_file('test_file.txt', 'example.xml'))
-    print(check_file('test_file.txt', '2_task.py'))  # выдаст ошибку, если изменить этот python файл
-    print(check_file('test_file.txt', '1_task.py'))
-    print(check_file('test_file.txt', 'file_02.txt'))  # файла нет в директории
-    print(check_file('test_file.txt', 'file_03.txt'))  # файла нет в хэш-файле
-
-    help(create_hash)
-    print(create_hash)
+    print(check_file('test_file.txt', 'second_task.py'))  # will give an error if you change this python file
+    print(check_file('test_file.txt', 'first_task.py'))
+    print(check_file('test_file.txt', 'file_02.txt'))  # the file is not in the directory
+    print(check_file('test_file.txt', 'file_03.txt'))  # the file is not in the hash file
