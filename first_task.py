@@ -10,14 +10,14 @@ def create_xml_config_file(file_name):
     :param file_name: name for config XML-file.
     """
 
-    root = ET.Element('config')  # Создаём главный тэг
+    root = ET.Element('config')  # Create root tag
     file_tag = ET.SubElement(root, 'file',
 
                              attrib={
                                     'source_path': 'C:\Windows\system32',
                                      'destination_path': 'C:\Program files',
                                      'file_name': 'kernel32.dll'
-                                     })   # Создаём дочерний тэг с параметрами, наследуемся от root
+                                     })   # Create a child tag with parameters, inherit from root
 
     file_tag = ET.SubElement(root, 'file',
                              attrib={
@@ -27,7 +27,7 @@ def create_xml_config_file(file_name):
                                      })
 
     file = ET.ElementTree(root)
-    file.write(file_name, encoding="utf-8", xml_declaration=True)   # Сохраняем в файл
+    file.write(file_name, encoding="utf-8", xml_declaration=True)   # save to file
 
 
 def get_xml_config_file(file_name):
@@ -42,7 +42,7 @@ def get_xml_config_file(file_name):
 
     except FileNotFoundError:
         create_xml_config_file(file_name)
-        print('[WARRING] файл "example.xml" не был найден и был создан.')
+        print('[WARRING] file "example.xml" not found and was created.')
         return open(file_name, "r")
 
 
@@ -57,8 +57,8 @@ def parsing_xml_config_file(file_name='example.xml'):
 
     tree = ET.ElementTree(file=file)
     root = tree.getroot()
-    for child_of_root in root.iter("file"):  # метод iter - возвращает данные по фильтру в скобках
-        yield child_of_root.attrib  # attrib - возвращает XML-атрибуты тега
+    for child_of_root in root.iter("file"):  # iter method - returns data by the filter in parentheses
+        yield child_of_root.attrib  # attrib - Returns the XML attributes of a tag
 
 
 def copy_func(data):
@@ -70,27 +70,27 @@ def copy_func(data):
     """
 
     print()
-    print('[INFO] Попытка копирования по конфигу:')
+    print('[INFO] copy attempt by config:')
     print(f'[INFO] {data}')
 
     try:
+
         copy2(os.path.join(data['source_path'], data['file_name']), data['destination_path'])
-        print('[INFO] Копирование успешно завершено.')
+
+        print('[INFO] copying completed.')
     except FileNotFoundError:
-        print('[ERROR] Файл или путь не найдены или заданы некорректно.')
+        print('[ERROR] File or path not found or incorrect.')
     except PermissionError:
-        print('[ERROR] Отказано в доступе. Запустите код с правами на чтение указанных файлов.')
-    except Exception:
-        print('[ERROR] Непонятная ошибка при попытке копирования файла. ')
+        print('[ERROR] Access denied. Run the code with read permissions for the files.')
 
 
 if __name__ == '__main__':
 
-    file_name = 'example.xml'   # Задаём имя конфиг-файла
+    file_name = 'example.xml'   # name for config-file
 
-    parsingData = parsing_xml_config_file(file_name)    # Вызываем парсинг-функцию, возвращающую генератор
+    parsingData = parsing_xml_config_file(file_name)    # parsing-func, return generator
 
-    for data in parsingData:    # Проходимся по генератору
-        copy_func(data)     # Копируем файлы
+    for data in parsingData:
+        copy_func(data)     # Copy files with data
 
     input()
