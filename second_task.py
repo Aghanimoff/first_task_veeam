@@ -68,7 +68,7 @@ def check_file(hash_file_path, file_path):
 
 
 def create_txt_file_with_hash_func():
-    with open('test_file.txt', 'w+') as test_file:
+    with open('hash_file.txt', 'w+') as test_file:
         add_hash_info_to_test_file('file_01.txt', 'md5', test_file)
         add_hash_info_to_test_file('second_task_folder/file_02.txt', 'md5', test_file)
         add_hash_info_to_test_file('example.xml', 'sha1', test_file)
@@ -81,12 +81,12 @@ def create_txt_file_with_hash_func():
 if __name__ == "__main__":
     print()
 
-    create_txt_file_with_hash_func()
+    # create_txt_file_with_hash_func()
 
-    print(check_file('test_file.txt', 'file_01.txt'))
-    print(check_file('test_file.txt', 'second_task_folder/file_02.txt'))
-    print(check_file('test_file.txt', 'example.xml'))
-    print(check_file('test_file.txt', 'second_task.py'))  # will give an error if you change this python file
-    print(check_file('test_file.txt', 'first_task.py'))
-    print(check_file('test_file.txt', 'file_02.txt'))  # the file is not in the directory
-    print(check_file('test_file.txt', 'file_03.txt'))  # the file is not in the hash file
+    print(check_file('hash_file.txt', 'file_01.txt'))
+    print(check_file('hash_file.txt', 'second_task_folder/file_02.txt'))
+    print(check_file('hash_file.txt', 'example.xml'))
+    print(check_file('hash_file.txt', 'second_task.py'))  # will give an error if you change this python file
+    print(check_file('hash_file.txt', 'first_task.py'))
+    print(check_file('hash_file.txt', 'file_02.txt'))  # the file is not in the directory
+    print(check_file('hash_file.txt', 'file_03.txt'))  # the file is not in the hash file
