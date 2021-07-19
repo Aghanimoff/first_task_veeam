@@ -1,4 +1,4 @@
-# first_task_veeam
+# test_task_veeam
 
 Тестовое задание для компании Veeam. Состоит из 3х частей:
 
